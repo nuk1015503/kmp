@@ -30,13 +30,15 @@ func KMP(s, substr string) (bool, int) {
 
 func search(s string, failureArr []failInfo) (bool, int) {
 	byteArr := []rune(s)
-
+	if len(byteArr) < len(failureArr) {
+		return false, -1
+	}
 	for i := 0; i < len(byteArr); i++ {
 		isExist := true
-		for j := range failureArr {
-			if byteArr[i] != failureArr[j].b {
+		for _, val := range failureArr {
+			if byteArr[i] != val.b {
 				isExist = false
-				i += failureArr[j].value
+				i += val.value
 				break
 			} else {
 				i++
