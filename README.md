@@ -1,5 +1,5 @@
 # README
-===========================
+---------------
 This is a Knuth-Morris-Pratt algorithm implement.
 
 Install
