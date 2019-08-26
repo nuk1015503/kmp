@@ -33,22 +33,28 @@ func search(s string, failureArr []failInfo) (bool, int) {
 	if len(byteArr) < len(failureArr) {
 		return false, -1
 	}
-	for i := 0; i < len(byteArr); i++ {
-		isExist := true
-		for _, val := range failureArr {
-			if byteArr[i] != val.b {
-				isExist = false
-				i += val.value
-				break
-			} else {
+
+	i := 0
+	j := 0
+	for i < len(byteArr) && j < len(failureArr) {
+		if byteArr[i] == failureArr[j].b {
+			i++
+			j++
+		} else {
+			if j == 0 {
 				i++
+			} else {
+				j = failureArr[j-1].value
 			}
 		}
-		if isExist {
-			return isExist, i - len(failureArr)
-		}
 	}
-	return false, -1
+
+	if j < len(failureArr) {
+		return false, -1
+	}
+
+	return true, i - len(failureArr)
+
 }
 
 func failureArr(s string) []failInfo {
